@@ -1,0 +1,155 @@
+1. adding User
+
+Request:
+
+method: POST
+URL:     localhost:9625/user/addUser/{userName}
+
+Response:
+
+{
+    "message": "added user",
+    "code": 200,
+    "reqId": 1611431387155
+}
+
+duplicate entry:
+
+{
+    "status": "FORBIDDEN",
+    "errors": [
+        "user already present"
+    ],
+    "timeStamp": "2021-01-24T01:21:15.029404",
+    "pathUri": "uri=/user/addUser/Abhishek;client=0:0:0:0:0:0:0:1"
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. adding priority
+
+Request:
+
+method: POST
+URL:   localhost:9625/priority/addPriority/{priorityName}    
+
+Response:
+
+{
+    "message": "added priority",
+    "code": 200,
+    "reqId": 1611431542065
+}
+
+
+duplicate entry:
+
+{
+    "status": "FORBIDDEN",
+    "errors": [
+        "priority type already present"
+    ],
+    "timeStamp": "2021-01-24T01:23:55.4826617",
+    "pathUri": "uri=/priority/addPriority/Connection;client=0:0:0:0:0:0:0:1"
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. Assign priority to a User
+
+Request:
+
+method: POST
+URL: localhost:8080/priority/assignPriority
+
+Request Body: 
+
+{
+	"userId": 1611431387155,
+	"priorityObjectList": [ {
+		"priorityId":1611431695298 ,
+		"priorityScale": 5,
+		"priorityOrder": 1
+	},
+	{
+		"priorityId":1611431687008 ,
+		"priorityScale": 5,
+		"priorityOrder": 2
+	},
+	{
+		"priorityId":1611431674441 ,
+		"priorityScale": 5,
+		"priorityOrder": 3
+	},
+	{
+		"priorityId":1611431542065 ,
+		"priorityScale": 5,
+		"priorityOrder": 4
+	} ]
+}
+
+
+Response:
+
+{
+    "message": "Added mapping for given priority types",
+    "code": 200
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. Getting user priority mapping details
+
+Request:
+
+method: GET
+URL: http://localhost:9625/priority/getPriorityDetails/{userID}
+
+
+Response:
+
+{
+    "responseCodeJson": {
+        "message": "fetched priority details",
+        "code": 200
+    },
+    "object": {
+        "userId": 1611431387155,
+        "priorityObjectList": [
+            {
+                "priorityId": 1611431542065,
+                "priorityScale": 5,
+                "priorityOrder": 4
+            },
+            {
+                "priorityId": 1611431674441,
+                "priorityScale": 5,
+                "priorityOrder": 3
+            },
+            {
+                "priorityId": 1611431687008,
+                "priorityScale": 5,
+                "priorityOrder": 2
+            },
+            {
+                "priorityId": 1611431695298,
+                "priorityScale": 5,
+                "priorityOrder": 1
+            }
+        ]
+    }
+}
+
+
+wrong userID in path variable:
+
+{
+    "status": "BAD_REQUEST",
+    "errors": [
+        "UserName not found"
+    ],
+    "timeStamp": "2021-01-24T04:20:55.0286972",
+    "pathUri": "uri=/priority/getPriorityDetails/16114313871578;client=0:0:0:0:0:0:0:1"
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

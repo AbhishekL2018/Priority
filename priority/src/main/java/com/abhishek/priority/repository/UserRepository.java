@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Integer> {
     Optional<UserModel> findByUserNameAndDeleted(String userName, boolean deleted);
+
+    Optional<UserModel> findByUserIdAndDeleted(long userId, boolean b);
 }
